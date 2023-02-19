@@ -13,7 +13,7 @@ defaults:
     working-directory: packages/server
 
 jobs:
-install:
+  install:
     name: Install
     runs-on: ubuntu-latest
     steps:
