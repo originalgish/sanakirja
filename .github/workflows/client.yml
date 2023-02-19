@@ -56,8 +56,6 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Install
-        run: yarn ci:install
       - name: ts-check
         run: yarn ts-check
 
