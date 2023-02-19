@@ -46,14 +46,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".node-version"
-      - name: Restore node_modules
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: yarn ci:install
       - name: Lint
         run: yarn lint
 
