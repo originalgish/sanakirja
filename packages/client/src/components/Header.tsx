@@ -13,7 +13,7 @@ export const Header = () => {
   return (
     <header className="header">
       <Typography.Title level={2} style={{ margin: 0 }}>
-        Sanakirja Test
+        Sanakirja
       </Typography.Title>
 
       <Button type="default" onClick={trigger} loading={isMutating}>
