@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy server to heroku
+    name: Deploy server and client
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
