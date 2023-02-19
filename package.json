@@ -8,19 +8,19 @@
     "packages/*"
   ],
   "scripts": {
-    "start:client": "yarn workspace client start",
-    "start:server": "yarn workspace server start",
-    "start": "concurrently --kill-others-on-fail \"yarn start:server\"  \"yarn start:client\"",
-    "dev:client": "yarn workspace client start",
-    "dev:server": "yarn workspace server dev",
     "dev": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\"",
-    "build:client": "yarn workspace client build",
-    "build:server": "yarn workspace server build",
     "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
-    "ci:build:client": "yarn build:client --silent",
-    "ci:build:server": "yarn build:server",
+    "dev:client": "yarn workspace client start",
+    "build:client": "yarn workspace client build",
+    "lint:client": "yarn workspace client eslint ./src",
+    "ts-check:client": "yarn workspace client tsc",
+    "test:client": "yarn workspace client test",
+    "dev:server": "yarn workspace server dev",
+    "build:server": "yarn workspace server build",
     "ci:install:client": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
-    "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent"
+    "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent",
+    "ci:build:client": "yarn build:client --silent",
+    "ci:build:server": "yarn build:server"
   },
   "dependencies": {
     "concurrently": "^7.6.0"

@@ -6,11 +6,11 @@ on:
       - main
     paths:
       - "packages/client/**"
-      - ".github/**"
+      - ".github/workflows/client.yml"
 
 jobs:
-  build:
-    name: Build
+  install:
+    name: Install
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,6 +30,56 @@ jobs:
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
       - name: Install
         run: yarn ci:install:client
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Lint
+        run: yarn lint:client
+
+  ts-check:
+    name: ts-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+      - name: ts-check
+        run: yarn ts-check:client
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+      - name: test
+        run: yarn test:client
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Restore node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build
         run: yarn ci:build:client
         env:
