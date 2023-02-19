@@ -25,10 +25,14 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "ts-check": "tsc",
+    "lint": "eslint ./src",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src"
+    "ci:install": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
+    "ci:build": "yarn build:client --silent"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {

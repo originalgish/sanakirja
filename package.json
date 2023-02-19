@@ -10,16 +10,9 @@
   "scripts": {
     "dev": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\"",
     "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
-    "dev:client": "yarn workspace client start",
-    "build:client": "yarn workspace client build",
-    "lint:client": "yarn workspace client lint",
-    "ts-check:client": "yarn workspace client tsc",
-    "test:client": "yarn workspace client test",
     "dev:server": "yarn workspace server dev",
     "build:server": "yarn workspace server build",
-    "ci:install:client": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
     "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent",
-    "ci:build:client": "yarn build:client --silent",
     "ci:build:server": "yarn build:server"
   },
   "dependencies": {
