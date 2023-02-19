@@ -135,7 +135,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/upload-artifact@v3
+      - uses: actions/dowload-artifact@v3
         with:
           name: dist
           path: packages/server/dist
