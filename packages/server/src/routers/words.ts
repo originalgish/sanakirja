@@ -5,10 +5,6 @@ import { WordsModel } from "models";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  return res.send("TEST 1");
-});
-
 router.get("/api/v1/words", async (req, res) => {
   try {
     const words = await WordsModel.find({});
