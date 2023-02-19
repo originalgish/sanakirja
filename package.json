@@ -12,7 +12,7 @@
     "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
     "dev:client": "yarn workspace client start",
     "build:client": "yarn workspace client build",
-    "lint:client": "yarn workspace client run eslint ./src",
+    "lint:client": "yarn workspace client lint",
     "ts-check:client": "yarn workspace client tsc",
     "test:client": "yarn workspace client test",
     "dev:server": "yarn workspace server dev",
