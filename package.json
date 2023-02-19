@@ -17,8 +17,10 @@
     "build:client": "yarn workspace client build",
     "build:server": "yarn workspace server build",
     "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
-    "ci:install": "yarn install --frozen-lockfile --link-duplicates --silent",
-    "ci:build": "yarn run --silent build"
+    "ci:build:client": "yarn build:client --silent",
+    "ci:build:server": "yarn build:server --silent",
+    "ci:install:client": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
+    "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent"
   },
   "dependencies": {
     "concurrently": "^7.6.0"
