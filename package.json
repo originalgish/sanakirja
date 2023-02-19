@@ -18,7 +18,7 @@
     "build:server": "yarn workspace server build",
     "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
     "ci:build:client": "yarn build:client --silent",
-    "ci:build:server": "yarn build:server --silent",
+    "ci:build:server": "yarn build:server",
     "ci:install:client": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
     "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent"
   },
