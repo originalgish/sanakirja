@@ -62,7 +62,7 @@ jobs:
         run: yarn ts-check
 
   test:
-    name: test
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

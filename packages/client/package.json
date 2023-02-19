@@ -32,7 +32,7 @@
     "lint": "eslint ./src",
     "eject": "react-scripts eject",
     "ci:install": "yarn workspace client install --frozen-lockfile --link-duplicates --silent",
-    "ci:build": "yarn build:client --silent"
+    "ci:build": "yarn build --silent"
   },
   "proxy": "http://localhost:3001",
   "eslintConfig": {
