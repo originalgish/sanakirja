@@ -8,6 +8,10 @@ on:
       - "packages/server/**"
       - ".github/workflows/server.yml"
 
+defaults:
+  run:
+    working-directory: packages/client
+
 jobs:
   build:
     name: Build server
