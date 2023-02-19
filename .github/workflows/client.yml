@@ -13,9 +13,32 @@ defaults:
     working-directory: packages/client
 
 jobs:
+  install:
+    name: Install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node version
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".node-version"
+      - name: Node modules cache
+        uses: actions/cache@v3
+        id: cache-node-modules
+        with:
+          path: |
+            .yarn-meta
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: yarn ci:install
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -38,6 +61,7 @@ jobs:
   ts-check:
     name: ts-check
     runs-on: ubuntu-latest
+    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -60,6 +84,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -121,7 +146,7 @@ jobs:
           name: build
           path: packages/client/build
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2
         with:
           publish-dir: "packages/client/build"
           production-branch: main
