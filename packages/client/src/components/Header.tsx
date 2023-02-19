@@ -17,7 +17,7 @@ export const Header = () => {
       </Typography.Title>
 
       <Button type="default" onClick={trigger} loading={isMutating}>
-        Upload words
+        Load words
       </Button>
     </header>
   );

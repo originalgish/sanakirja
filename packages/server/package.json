@@ -7,11 +7,13 @@
   "private": true,
   "scripts": {
     "start": "NODE_PATH=./dist node dist/index.js",
-    "build": "rimraf dist && tsc",
     "dev": "nodemon src/index.ts",
-    "lint": "eslint . --ext ./src",
+    "build": "rimraf dist && tsc",
+    "test": "echo \"Error: no test specified\"",
+    "lint": "eslint ./src",
     "ts-check": "tsc --isolatedModules",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "ci:install": "yarn install --frozen-lockfile --link-duplicates --silent",
+    "ci:build": "yarn build --silent"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",
