@@ -6,33 +6,8 @@ on:
       - main
 
 jobs:
-  build:
-    name: Build all
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup node version
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: ".node-version"
-      - name: Node modules cache
-        uses: actions/cache@v3
-        id: cache-node-modules
-        with:
-          path: |
-            .yarn-meta
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Yarn install
-        run: yarn ci:install
-      - name: Yarn build
-        run: yarn ci:build
-
   deploy-server:
     name: Deploy server to heroku
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -61,3 +36,4 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           appdir: "packages/server/dist"
+          branch: main
