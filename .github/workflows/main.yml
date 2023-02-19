@@ -29,6 +29,8 @@ jobs:
         run: yarn ci:install
       - name: Build
         run: yarn ci:build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
       - name: Deploy server to Heroku
         uses: akhileshns/heroku-deploy@v3.12.13
