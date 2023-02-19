@@ -129,10 +129,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ steps.node-version.outputs.NODE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
       - name: Build
         run: yarn ci:build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: packages/server/dist
 
   deploy:
     name: Deploy
