@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "packages/client/**"
+      - ".github"
 
 jobs:
   build:
@@ -46,6 +47,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build
+          path: packages/client/build
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
