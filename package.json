@@ -1,0 +1,24 @@
+{
+  "name": "sanakirja",
+  "version": "1.0.0",
+  "author": "DenisM",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start:client": "yarn workspace client start",
+    "start:server": "yarn workspace server start",
+    "start": "concurrently --kill-others-on-fail \"yarn start:server\"  \"yarn start:client\"",
+    "dev:client": "yarn workspace client start",
+    "dev:server": "yarn workspace server dev",
+    "dev": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\"",
+    "build:client": "yarn workspace client build",
+    "build:server": "yarn workspace server build",
+    "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
