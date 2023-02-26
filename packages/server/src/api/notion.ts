@@ -6,12 +6,12 @@ import type { Block } from "types";
 
 const notion = new Client({ auth: config.notion_api_key });
 
-const fetchPaginatedData = async (databaseId: string, previousData: Block[], cursor?: string): Promise<Block[]> => {
-  const newResponse = await notion.databases.query({ database_id: databaseId, start_cursor: cursor });
+const fetchPaginatedData = async (blockId: string, previousData: Block[], cursor?: string): Promise<Block[]> => {
+  const newResponse = await notion.blocks.children.list({ block_id: blockId, start_cursor: cursor });
   const results = [...previousData, ...newResponse.results] as unknown as Block[];
 
   if (newResponse.has_more) {
-    return fetchPaginatedData(databaseId, results, newResponse.next_cursor);
+    return fetchPaginatedData(blockId, results, newResponse.next_cursor);
   }
 
   return results;
@@ -20,9 +20,9 @@ const fetchPaginatedData = async (databaseId: string, previousData: Block[], cur
 const notionApi = {
   async getAllWords() {
     try {
-      const databaseId = "ef5aa5c4c7a74cefa36acf5cfee4e13b";
+      const blockId = "5dd7b73f0ac24a52aebe077dfab69512";
 
-      return await fetchPaginatedData(databaseId, []);
+      return await fetchPaginatedData(blockId, []);
     } catch (error) {
       console.error(error);
     }
