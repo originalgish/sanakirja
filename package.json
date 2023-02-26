@@ -9,11 +9,7 @@
   ],
   "scripts": {
     "dev": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\"",
-    "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\"",
-    "dev:server": "yarn workspace server dev",
-    "build:server": "yarn workspace server build",
-    "ci:install:server": "yarn workspace server install --frozen-lockfile --link-duplicates --silent",
-    "ci:build:server": "yarn build:server"
+    "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\""
   },
   "dependencies": {
     "concurrently": "^7.6.0"
