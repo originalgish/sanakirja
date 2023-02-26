@@ -27,21 +27,21 @@ router.get("/api/v1/words/get_random", async (req, res) => {
 });
 
 router.post("/api/v1/words/load", async (req, res) => {
-  await WordsModel.deleteMany({});
-  const response = await api.getAllWords();
-
-  const mappedWords = response
-    .map((data) => ({
-      finnish: data.properties.Suomi.title[0]?.plain_text,
-      english: data.properties.Englanti.rich_text[0]?.plain_text,
-    }))
-    .filter((word) => word.english && word.finnish);
-
-  const words = new WordsModel({
-    words: mappedWords,
-  });
-
   try {
+    await WordsModel.deleteMany({});
+    const response = await api.getAllWords();
+
+    const mappedWords = response
+      .map((data) => ({
+        finnish: data.table_row.cells[0][0]?.plain_text,
+        english: data.table_row.cells[1][0]?.plain_text,
+      }))
+      .filter((word) => word.english && word.finnish);
+
+    const words = new WordsModel({
+      words: mappedWords,
+    });
+
     await words.save();
     res.status(201).send(words);
   } catch (e) {
