@@ -1,14 +1,7 @@
 export type Block = {
-  properties: {
-    Englanti: {
-      rich_text: {
-        plain_text?: string;
-      }[];
-    };
-    Suomi: {
-      title: {
-        plain_text?: string;
-      }[];
-    };
+  table_row: {
+    cells: {
+      plain_text?: string;
+    }[][];
   };
 };
