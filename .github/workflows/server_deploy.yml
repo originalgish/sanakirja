@@ -1,4 +1,4 @@
-name: Run pull request checks for server
+name: Build and deploy server
 
 on:
   push:

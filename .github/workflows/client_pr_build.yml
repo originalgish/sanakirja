@@ -1,4 +1,4 @@
-name: Run pull request checks for client
+name: PR checks client
 
 on:
   pull_request:
