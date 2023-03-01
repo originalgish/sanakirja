@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"yarn dev:server\"  \"yarn dev:client\"",
-    "build": "concurrently --kill-others-on-fail \"yarn build:server\"  \"yarn build:client\""
+    "dev": "concurrently --kill-others-on-fail \"yarn workspace server dev\"  \"yarn workspace client dev\"",
+    "build": "concurrently --kill-others-on-fail \"yarn workspace server build\"  \"yarn workspace client build\""
   },
   "dependencies": {
     "concurrently": "^7.6.0"
