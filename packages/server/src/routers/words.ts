@@ -28,6 +28,16 @@ router.get("/api/v1/words/get_random", async (req, res) => {
   }
 });
 
+router.get("/api/v1/words/get_mode", async (req, res) => {
+  try {
+    const words = await WordsModel.findOne({});
+
+    res.status(200).send(words.mode);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
 router.post("/api/v1/words/create", async (req, res) => {
   try {
     const words = new WordsModel({
@@ -66,6 +76,11 @@ router.put("/api/v1/words/load", async (req, res) => {
 router.put("/api/v1/words/set_mode", async (req, res) => {
   try {
     const { mode } = req.body as { mode: Mode };
+
+    if (!(mode === "english" || mode === "finnish")) {
+      return res.status(400).send("Incorrect mode");
+    }
+
     const words = await WordsModel.findOne({});
 
     words.mode = mode;
