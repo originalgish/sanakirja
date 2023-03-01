@@ -3,6 +3,10 @@ import { model, Schema } from "mongoose";
 import type { Words } from "types";
 
 const wordsSchema = new Schema<Words>({
+  mode: {
+    type: String,
+    required: true,
+  },
   words: [
     {
       finnish: {

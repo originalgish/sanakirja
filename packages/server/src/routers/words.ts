@@ -3,11 +3,13 @@ import express from "express";
 import { api } from "api";
 import { WordsModel } from "models";
 
+import type { Mode } from "types";
+
 const router = express.Router();
 
 router.get("/api/v1/words", async (req, res) => {
   try {
-    const words = await WordsModel.find({});
+    const words = await WordsModel.findOne({});
     res.status(200).send(words);
   } catch (e) {
     res.status(500).send(e);
@@ -16,7 +18,7 @@ router.get("/api/v1/words", async (req, res) => {
 
 router.get("/api/v1/words/get_random", async (req, res) => {
   try {
-    const [words] = await WordsModel.find({});
+    const words = await WordsModel.findOne({});
     const wordsArray = words.words;
 
     const randomId = Math.floor(Math.random() * wordsArray.length);
@@ -26,9 +28,23 @@ router.get("/api/v1/words/get_random", async (req, res) => {
   }
 });
 
-router.post("/api/v1/words/load", async (req, res) => {
+router.post("/api/v1/words/create", async (req, res) => {
   try {
-    await WordsModel.deleteMany({});
+    const words = new WordsModel({
+      mode: "finnish",
+      words: [],
+    });
+
+    await words.save();
+    res.status(201).send(words);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.put("/api/v1/words/load", async (req, res) => {
+  try {
+    const words = await WordsModel.findOne({});
     const response = await api.getAllWords();
 
     const mappedWords = response
@@ -38,12 +54,24 @@ router.post("/api/v1/words/load", async (req, res) => {
       }))
       .filter((word) => word.english && word.finnish);
 
-    const words = new WordsModel({
-      words: mappedWords,
-    });
+    words.words = mappedWords;
 
     await words.save();
-    res.status(201).send(words);
+    res.status(200).send(words);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+});
+
+router.put("/api/v1/words/set_mode", async (req, res) => {
+  try {
+    const { mode } = req.body as { mode: Mode };
+    const words = await WordsModel.findOne({});
+
+    words.mode = mode;
+
+    await words.save();
+    res.status(200).send(words);
   } catch (e) {
     res.status(400).send(e);
   }
