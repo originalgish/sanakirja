@@ -32,7 +32,7 @@ router.get("/api/v1/words/get_mode", async (req, res) => {
   try {
     const words = await WordsModel.findOne({});
 
-    res.status(200).send(words.mode);
+    res.status(200).send({ mode: words.mode });
   } catch (e) {
     res.status(400).send(e);
   }
