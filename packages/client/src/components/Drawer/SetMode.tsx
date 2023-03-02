@@ -7,9 +7,9 @@ import { api } from "api";
 type Mode = "finnish" | "english";
 type ModeResponse = { mode: Mode };
 
-const getMode = () => api.get<ModeResponse>("/words/get_mode").then(({ data }) => data);
+const getMode = () => api.get<ModeResponse>("/settings").then(({ data }) => data);
 
-const setMode = (mode: Mode) => api.put("/words/set_mode", { mode });
+const setMode = (mode: Mode) => api.put("/settings/set_mode", { mode });
 
 export const SetMode = () => {
   const { data: mode, error, isLoading, isValidating, mutate } = useSWR<ModeResponse>("mode", getMode);
