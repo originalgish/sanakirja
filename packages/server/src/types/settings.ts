@@ -1,5 +1,5 @@
-import { Languages } from "./words";
+import type { Language } from "@sanakirja/shared";
 
 export type Settings = {
-  mode: Languages;
+  mode: Language;
 };

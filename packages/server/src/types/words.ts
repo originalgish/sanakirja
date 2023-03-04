@@ -1,8 +1,8 @@
-export type Languages = "finnish" | "english";
+import type { Language } from "@sanakirja/shared";
 
-export type Mode = Languages;
+export type Mode = Language;
 
-export type Word = Record<Languages, string>;
+export type Word = Record<Language, string>;
 
 export type Words = {
   mode: Mode;

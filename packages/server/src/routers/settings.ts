@@ -2,7 +2,7 @@ import express from "express";
 
 import { SettingsModel } from "models";
 
-import type { Languages } from "types";
+import type { Language } from "@sanakirja/shared";
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.post("/api/v1/settings/create", async (req, res) => {
 
 router.put("/api/v1/settings/set_mode", async (req, res) => {
   try {
-    const { mode } = req.body as { mode: Languages };
+    const { mode } = req.body as { mode: Language };
 
     if (!(mode === "english" || mode === "finnish")) {
       return res.status(400).send("Incorrect mode");

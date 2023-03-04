@@ -4,18 +4,19 @@ import useSWR from "swr";
 
 import { api } from "api";
 
-type Mode = "finnish" | "english";
-type ModeResponse = { mode: Mode };
+import { Language, languages } from "@sanakirja/shared";
+
+type ModeResponse = { mode: Language };
 
 const getMode = () => api.get<ModeResponse>("/settings").then(({ data }) => data);
 
-const setMode = (mode: Mode) => api.put("/settings/set_mode", { mode });
+const setMode = (mode: Language) => api.put("/settings/set_mode", { mode });
 
 export const SetMode = () => {
   const { data: mode, error, isLoading, isValidating, mutate } = useSWR<ModeResponse>("mode", getMode);
 
   const onChange = useCallback(
-    async (value: Mode) => {
+    async (value: Language) => {
       await setMode(value);
       mutate({ mode: value });
     },
@@ -30,10 +31,10 @@ export const SetMode = () => {
       onChange={onChange}
       loading={isLoading || isValidating}
       disabled={isLoading || isValidating}
-      options={[
-        { value: "english", label: "english" },
-        { value: "finnish", label: "finnish" },
-      ]}
+      options={languages.map((language) => ({
+        value: language,
+        label: language,
+      }))}
     />
   );
 };
