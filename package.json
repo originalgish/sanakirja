@@ -8,8 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"yarn workspace server dev\"  \"yarn workspace client dev\"",
-    "build": "concurrently --kill-others-on-fail \"yarn workspace server build\"  \"yarn workspace client build\""
+    "dev": "concurrently --kill-others-on-fail \"yarn workspace @sanakirja/server dev\"  \"yarn workspace @sanakirja/client dev\"",
+    "reinstall": "rm -rf node_modules packages/*/node_modules  && yarn"
   },
   "dependencies": {
     "concurrently": "^7.6.0"
