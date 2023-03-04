@@ -3,7 +3,7 @@ import useSWRMutation from "swr/mutation";
 
 import { api } from "api";
 
-const syncWords = () => api.put("/words/load");
+const syncWords = () => api.post("/words/load");
 
 export const SyncWords = () => {
   const { trigger, isMutating } = useSWRMutation("syncWords", syncWords);
