@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "@sanakirja/server",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "DenisM",
@@ -8,7 +8,7 @@
   "scripts": {
     "start": "NODE_PATH=./dist node dist/index.js",
     "dev": "nodemon src/index.ts",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc --build",
     "test": "echo \"Error: no test specified\"",
     "lint": "eslint ./src",
     "ts-check": "tsc --isolatedModules",
