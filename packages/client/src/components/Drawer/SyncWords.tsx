@@ -9,7 +9,7 @@ export const SyncWords = () => {
   const { trigger, isMutating } = useSWRMutation("syncWords", syncWords);
 
   return (
-    <Button type="default" htmlType="button" onClick={trigger} loading={isMutating}>
+    <Button type="default" htmlType="button" onClick={() => trigger()} loading={isMutating}>
       Sync words
     </Button>
   );
