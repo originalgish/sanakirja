@@ -6,7 +6,8 @@
     "target": "ES2019",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
