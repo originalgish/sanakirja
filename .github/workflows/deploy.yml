@@ -35,37 +35,37 @@ jobs:
           buildpack: "https://github.com/unfold/heroku-buildpack-pnpm"
           procfile: "web: cd packages/server && pnpm start"
 
-  # deploy-client:
-  #   name: Deploy client
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Setup pnpm
-  #       uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 7
-  #     - name: Setup node version
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version-file: ".node-version"
-  #         cache: "pnpm"
-  #     - name: Install
-  #       run: pnpm install -r --frozen-lockfile
-  #     - name: Build
-  #       run: pnpm build
-  #       env:
-  #         REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-  #     - name: Deploy to Netlify
-  #       uses: nwtgck/actions-netlify@v2
-  #       with:
-  #         publish-dir: "packages/client/build"
-  #         production-branch: main
-  #         deploy-message: "Deploy from GitHub Actions"
-  #         enable-pull-request-comment: false
-  #         enable-commit-comment: true
-  #         overwrites-pull-request-comment: true
-  #       env:
-  #         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-  #         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-  #       timeout-minutes: 1
+  deploy-client:
+    name: Deploy client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - name: Setup node version
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: ".node-version"
+          cache: "pnpm"
+      - name: Install
+        run: pnpm install -r --frozen-lockfile
+      - name: Build
+        run: pnpm build
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: "packages/client/build"
+          production-branch: main
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 1
