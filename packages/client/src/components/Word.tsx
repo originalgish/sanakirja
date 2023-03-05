@@ -2,12 +2,13 @@ import { useCallback } from "react";
 import { Button, Spin } from "antd";
 import useSWR from "swr";
 
+import { api } from "api";
+
 import { Card } from "./Card";
 
 import type { Word as WordType } from "types";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-const BASE_URL = `${process.env.REACT_APP_API_URL}/api/v1/words`;
+const getWord = () => api.get<WordType>("/words/get_random").then(({ data }) => data);
 
 export const Word = () => {
   const {
@@ -16,7 +17,7 @@ export const Word = () => {
     isLoading,
     isValidating,
     mutate,
-  } = useSWR<WordType>(`${BASE_URL}/get_random`, fetcher, {
+  } = useSWR<WordType>("word", getWord, {
     revalidateOnMount: true,
     revalidateIfStale: false,
     revalidateOnFocus: false,

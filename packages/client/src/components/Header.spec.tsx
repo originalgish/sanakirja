@@ -5,7 +5,7 @@ import { Header } from "./Header";
 
 describe("Header", () => {
   it("renders title", () => {
-    render(<Header />);
+    render(<Header onDrawerOpen={() => null} />);
 
     expect(screen.getByRole("heading", { name: "Sanakirja" })).toBeInTheDocument();
   });

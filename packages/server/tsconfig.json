@@ -12,5 +12,5 @@
     "require": ["tsconfig-paths/register"]
   },
   "lib": ["es2015"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
 }
