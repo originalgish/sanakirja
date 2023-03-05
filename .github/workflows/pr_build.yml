@@ -104,7 +104,7 @@ jobs:
             node-version: ${{ matrix.node-version }}
             cache: "pnpm"
       - name: Build
-        run: yarn ci:build
+        run: pnpm build
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
       - uses: actions/upload-artifact@v3
