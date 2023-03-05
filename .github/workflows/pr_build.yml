@@ -39,10 +39,10 @@ jobs:
         with:
           node-version-file: ".node-version"
       - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: "pnpm"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
       - name: Lint
         run: pnpm lint
 
@@ -58,10 +58,10 @@ jobs:
         with:
           node-version-file: ".node-version"
       - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: "pnpm"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
       - name: ts-check
         run: pnpm ts-check
 
@@ -77,10 +77,10 @@ jobs:
         with:
           node-version-file: ".node-version"
       - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: "pnpm"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
       - name: Test
         run: pnpm test
 
@@ -99,10 +99,10 @@ jobs:
         with:
           node-version-file: ".node-version"
       - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v3
-          with:
-            node-version: ${{ matrix.node-version }}
-            cache: "pnpm"
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
       - name: Build
         run: pnpm build
         env:
