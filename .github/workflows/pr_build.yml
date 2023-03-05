@@ -6,35 +6,9 @@ on:
       - main
 
 jobs:
-  install:
-    name: Install
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [15]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-      - name: Setup node version
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: ".node-version"
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install
-        run: pnpm install
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -46,18 +20,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".node-version"
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install
+        run: pnpm install
       - name: Lint
         run: pnpm lint
 
   ts-check:
     name: ts-check
     runs-on: ubuntu-latest
-    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -69,18 +40,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".node-version"
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install
+        run: pnpm install
       - name: ts-check
         run: pnpm ts-check
 
   test:
     name: Test
     runs-on: ubuntu-latest
-    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -92,11 +60,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".node-version"
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install
+        run: pnpm install
       - name: Test
         run: pnpm test
 
@@ -118,11 +84,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version-file: ".node-version"
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install
+        run: pnpm install
       - name: Build
         run: pnpm build
         env:
