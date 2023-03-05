@@ -15,7 +15,7 @@
   },
   "dependencies": {},
   "engines": {
-    "node": "16.x",
+    "node": "18.x",
     "pnpm": "^7.28.0"
   },
   "packageManager": "pnpm@7.28.0"
