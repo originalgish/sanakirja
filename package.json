@@ -4,14 +4,19 @@
   "author": "DenisM",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "concurrently --kill-others-on-fail \"yarn workspace @sanakirja/server dev\"  \"yarn workspace @sanakirja/client dev\"",
-    "reinstall": "rm -rf node_modules packages/*/node_modules  && yarn"
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "ts-check": "pnpm -r ts-check",
+    "reinstall": "rm -rf node_modules packages/*/node_modules && pnpm i",
+    "clean": "pnpm -r clean"
   },
-  "dependencies": {
-    "concurrently": "^7.6.0"
-  }
+  "dependencies": {},
+  "engines": {
+    "node": "16.x",
+    "pnpm": "^7.28.0"
+  },
+  "packageManager": "pnpm@7.28.0"
 }

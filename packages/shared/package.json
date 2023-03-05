@@ -6,6 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc -b"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
   }
 }
