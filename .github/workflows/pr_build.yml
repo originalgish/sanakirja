@@ -22,7 +22,7 @@ jobs:
           node-version-file: ".node-version"
           cache: "pnpm"
       - name: Install
-        run: pnpm install
+        run: pnpm install -r --frozen-lockfile
       - name: Lint
         run: pnpm lint
 
@@ -42,7 +42,7 @@ jobs:
           node-version-file: ".node-version"
           cache: "pnpm"
       - name: Install
-        run: pnpm install
+        run: pnpm install -r --frozen-lockfile
       - name: Build
         run: pnpm build
       - name: ts-check
@@ -64,7 +64,7 @@ jobs:
           node-version-file: ".node-version"
           cache: "pnpm"
       - name: Install
-        run: pnpm install
+        run: pnpm install -r --frozen-lockfile
       - name: Build
         run: pnpm build
       - name: Test
