@@ -107,7 +107,3 @@ jobs:
         run: pnpm build
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: packages/client/build
