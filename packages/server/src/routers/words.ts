@@ -16,11 +16,10 @@ router.get("/api/v1/words", async (req, res) => {
 
 router.get("/api/v1/words/get_random", async (req, res) => {
   try {
-    const [words] = await WordsModel.find({});
-    const wordsArray = words.words;
+    const words = await WordsModel.find({});
 
-    const randomId = Math.floor(Math.random() * wordsArray.length);
-    res.status(200).send(wordsArray[randomId]);
+    const randomId = Math.floor(Math.random() * words.length);
+    res.status(200).send(words[randomId]);
   } catch (e) {
     res.status(400).send(e);
   }
@@ -29,21 +28,19 @@ router.get("/api/v1/words/get_random", async (req, res) => {
 router.post("/api/v1/words/load", async (req, res) => {
   try {
     await WordsModel.deleteMany({});
-    const response = await api.getAllWords();
 
-    const mappedWords = response
+    const notionPage = await api.getAllWords();
+
+    const mappedWords = notionPage
       .map((data) => ({
         finnish: data.table_row.cells[0][0]?.plain_text,
         english: data.table_row.cells[1][0]?.plain_text,
       }))
       .filter((word) => word.english && word.finnish);
 
-    const words = new WordsModel({
-      words: mappedWords,
-    });
+    const words = await WordsModel.create(mappedWords);
 
-    await words.save();
-    res.status(201).send(words);
+    res.status(200).send(words);
   } catch (e) {
     res.status(400).send(e);
   }

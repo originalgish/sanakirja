@@ -1,4 +1,3 @@
-export type Word = {
-  finnish: string;
-  english: string;
-};
+import { Language } from "@sanakirja/shared";
+
+export type Word = Record<Language, string>;
