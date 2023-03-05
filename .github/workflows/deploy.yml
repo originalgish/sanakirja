@@ -33,6 +33,7 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           branch: main
           buildpack: "https://github.com/unfold/heroku-buildpack-pnpm"
+          procfile: "web: cd packages/server && pnpm start"
 
   # deploy-client:
   #   name: Deploy client
