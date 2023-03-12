@@ -19,11 +19,6 @@ const userSchema = new Schema<CustomUserDocument>(
       required: true,
       minlength: 4,
       trim: true,
-      validate(value: string) {
-        if (value.toLowerCase().includes("password")) {
-          throw new Error("Password cannot contain 'password'");
-        }
-      },
     },
     tokens: [
       {
