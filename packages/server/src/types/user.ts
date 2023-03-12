@@ -6,5 +6,5 @@ export interface CustomUserDocument extends User, Document {
 }
 
 export interface CustomUserModel extends Model<CustomUserDocument> {
-  findByCredentials: (email: string, password: string) => Promise<CustomUserDocument>;
+  findByCredentials: (name: string, password: string) => Promise<CustomUserDocument>;
 }

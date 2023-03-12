@@ -22,10 +22,10 @@ router.post("/api/v1/users/signup", async (req: AuthRequest, res) => {
 });
 
 router.post("/api/v1/users/login", async (req: AuthRequest, res) => {
-  const { email, password } = req.body as User;
+  const { name, password } = req.body as User;
 
   try {
-    const user = await UserModel.findByCredentials(email, password);
+    const user = await UserModel.findByCredentials(name, password);
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (e) {

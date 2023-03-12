@@ -4,7 +4,6 @@ export type Language = (typeof languages)[number];
 
 export type User = {
   name: string;
-  email: string;
   password: string;
   tokens: {
     token: string;

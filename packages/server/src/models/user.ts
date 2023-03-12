@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { model, Schema } from "mongoose";
-import validator from "validator";
 
 import { config } from "config";
 
@@ -13,18 +12,7 @@ const userSchema = new Schema<CustomUserDocument>(
       type: String,
       require: true,
       trim: true,
-    },
-    email: {
-      type: String,
-      required: true,
       unique: true,
-      trim: true,
-      lowercase: true,
-      validate(value: string) {
-        if (!validator.isEmail(value)) {
-          throw new Error("Email is invalid");
-        }
-      },
     },
     password: {
       type: String,
@@ -60,8 +48,8 @@ userSchema.methods.generateAuthToken = async function () {
   return token;
 };
 
-userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await UserModel.findOne({ email });
+userSchema.statics.findByCredentials = async (name, password) => {
+  const user = await UserModel.findOne({ name });
 
   if (!user) {
     throw new Error("Unable to login");
