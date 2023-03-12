@@ -14,7 +14,9 @@ export const Drawer = ({ open, onClose }: Props) => {
   const { user } = useUser();
   return (
     <AntDrawer title="Settings" placement="left" width="260px" onClose={onClose} open={open}>
-      <Typography.Text style={{ margin: 0 }}>{`Hey, ${user?.name}!`}</Typography.Text>
+      <Typography.Text style={{ margin: 0 }}>
+        Hey, <b>{user?.name}</b>!
+      </Typography.Text>
       <Divider />
 
       <Form>

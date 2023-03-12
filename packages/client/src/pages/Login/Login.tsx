@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import type { FormEvent } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { Button, Form, Input, Typography } from "antd";
 
 import { useAuth } from "contexts";
 
@@ -23,32 +23,46 @@ export const Login = () => {
   }, [location.state, navigate]);
 
   const onSubmit = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      const formData = new FormData(e.currentTarget);
-
-      const name = formData.get("name") as string;
-      const password = formData.get("password") as string;
-
+    ({ name, password }: { name: string; password: string }) => {
       login({ name, password }, () => redirectToPreviousRoute());
     },
     [redirectToPreviousRoute, login],
   );
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        height: "100vh",
+        width: "100%",
+        display: "grid",
+        justifyItems: "center",
+        alignContent: "center",
+      }}
+    >
+      <Form name="login" layout="vertical" style={{ display: "grid", maxWidth: 600, width: "80%" }} onFinish={onSubmit}>
+        <Typography.Title style={{ marginTop: 0, textAlign: "center" }}>Login</Typography.Title>
 
-      <form onSubmit={onSubmit} style={{ display: "grid", width: "200px", gap: "16px" }}>
-        <input type="text" name="name" id="name" />
-        <input type="password" name="password" id="password" />
-        <button type="submit">Log in</button>
-      </form>
+        <Form.Item label="Name" name="name" rules={[{ required: true, message: "Name is required" }]}>
+          <Input />
+        </Form.Item>
 
-      <p>
-        Already logged in? Go to <Link to="/">words page</Link>
-      </p>
+        <Form.Item label="Password" name="password" rules={[{ required: true, message: "Password is required" }]}>
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item style={{ justifySelf: "center" }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+
+        <Typography.Text style={{ justifySelf: "center" }}>
+          Already logged in? <Link to="/">Take a seat</Link> then.
+        </Typography.Text>
+      </Form>
     </div>
   );
 };
