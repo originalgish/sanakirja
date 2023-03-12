@@ -3,7 +3,7 @@ import express from "express";
 
 import { config } from "config";
 import { connectDB } from "db";
-import { wordsRouter, settingsRouter } from "routers";
+import { wordsRouter, settingsRouter, userRouter } from "routers";
 
 const port = config.port;
 
@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(wordsRouter);
 app.use(settingsRouter);
+app.use(userRouter);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);
