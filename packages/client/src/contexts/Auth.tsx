@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     [mutate],
   );
 
-  const isAuthed = token !== null;
+  const isAuthed = token !== undefined;
 
   return <AuthContext.Provider value={{ token, isAuthed, login, logout }}>{children}</AuthContext.Provider>;
 };

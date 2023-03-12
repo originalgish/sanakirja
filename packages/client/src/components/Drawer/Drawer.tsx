@@ -3,6 +3,7 @@ import { Divider, Drawer as AntDrawer, Form, Typography } from "antd";
 import { SetMode } from "./SetMode";
 import { SyncWords } from "./SyncWords";
 import { Logout } from "./Logout";
+import { useUser } from "contexts";
 
 type Props = {
   open: boolean;
@@ -10,9 +11,10 @@ type Props = {
 };
 
 export const Drawer = ({ open, onClose }: Props) => {
+  const { user } = useUser();
   return (
     <AntDrawer title="Settings" placement="left" width="260px" onClose={onClose} open={open}>
-      <Typography.Text style={{ margin: 0 }}>{"Welcome, user!"}</Typography.Text>
+      <Typography.Text style={{ margin: 0 }}>{`Hey, ${user?.name}!`}</Typography.Text>
       <Divider />
 
       <Form>
