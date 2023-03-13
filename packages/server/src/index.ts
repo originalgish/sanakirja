@@ -3,7 +3,7 @@ import express from "express";
 
 import { config } from "config";
 import { connectDB } from "db";
-import { wordsRouter, settingsRouter, userRouter } from "routers";
+import { wordsRouter, userRouter } from "routers";
 
 const port = config.port;
 
@@ -13,7 +13,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(wordsRouter);
-app.use(settingsRouter);
 app.use(userRouter);
 
 app.listen(port, () => {

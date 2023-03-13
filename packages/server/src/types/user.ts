@@ -1,7 +1,7 @@
 import type { Document, Model } from "mongoose";
 import type { User } from "@sanakirja/shared";
 
-export interface CustomUserDocument extends User, Document {
+export interface CustomUserDocument extends Omit<User, "_id">, Document {
   generateAuthToken: () => Promise<string>;
 }
 

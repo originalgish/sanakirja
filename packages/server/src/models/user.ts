@@ -20,6 +20,12 @@ const userSchema = new Schema<CustomUserDocument>(
       minlength: 4,
       trim: true,
     },
+    preferences: {
+      mode: {
+        type: String,
+        required: true,
+      },
+    },
     tokens: [
       {
         token: {

@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from "react";
 import { Card as AntCard, Skeleton, Typography } from "antd";
-import { useSettingsContext } from "contexts";
+import { useUser } from "contexts";
 
 import type { Word } from "types";
 
@@ -10,8 +10,9 @@ type Props = {
 
 export const Card = ({ english, finnish, isValidating }: Props) => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const { user } = useUser();
 
-  const { mode } = useSettingsContext();
+  const mode = user?.preferences.mode;
 
   useLayoutEffect(() => {
     setIsFlipped(false);

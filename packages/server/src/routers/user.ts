@@ -3,14 +3,19 @@ import express from "express";
 import { auth } from "middleware";
 import { UserModel } from "models";
 
-import type { User } from "@sanakirja/shared";
+import type { User, UserPreferences } from "@sanakirja/shared";
 import type { AuthRequest } from "types";
 
 const router = express.Router();
 
 router.post("/api/v1/users/signup", async (req: AuthRequest, res) => {
   const newUser = req.body as User;
-  const user = new UserModel(newUser);
+  const user = new UserModel({
+    ...newUser,
+    preferences: {
+      mode: "finnish",
+    },
+  });
 
   try {
     await user.save();
@@ -122,6 +127,29 @@ router.put("/api/v1/users/:userId", auth, async (req: AuthRequest, res) => {
     updatesKeys.forEach((update) => (user[update] = updates[update]));
     await user.save();
     res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+router.put("/api/v1/users/:userId/preferences", auth, async (req: AuthRequest, res) => {
+  const updates = req.body as UserPreferences;
+  const updatesKeys = Object.keys(updates);
+
+  try {
+    const user = await UserModel.findOne({ _id: req.params.userId });
+
+    if (!user) {
+      res.status(404).send();
+    }
+
+    if (!(updates.mode === "english" || updates.mode === "finnish")) {
+      return res.status(400).send("Incorrect mode");
+    }
+
+    updatesKeys.forEach((update) => (user.preferences[update] = updates[update]));
+    await user.save();
+    res.status(200).send(user.preferences);
   } catch (e) {
     res.status(500).send(e);
   }
