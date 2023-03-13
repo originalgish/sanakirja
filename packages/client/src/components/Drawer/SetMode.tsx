@@ -1,24 +1,24 @@
 import { useCallback } from "react";
 import { Select } from "antd";
-import { useSettingsContext } from "contexts";
 
-import { Language, languages } from "@sanakirja/shared";
+import { useUser } from "contexts";
+
+import { languages } from "@sanakirja/shared";
+import type { Language } from "@sanakirja/shared";
 
 export const SetMode = () => {
-  const { mode, error, isLoading, setMode } = useSettingsContext();
+  const { user, isLoading, updatePreferences } = useUser();
 
   const onChange = useCallback(
-    async (value: Language) => {
-      setMode(value);
+    async (mode: Language) => {
+      updatePreferences((prevPreferences) => ({ ...prevPreferences, mode }));
     },
-    [setMode],
+    [updatePreferences],
   );
-
-  if (error) return <p>An error has occurred.</p>;
 
   return (
     <Select
-      value={mode}
+      value={user?.preferences.mode}
       onChange={onChange}
       loading={isLoading}
       disabled={isLoading}

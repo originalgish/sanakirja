@@ -7,6 +7,7 @@ export type UserPreferences = {
 };
 
 export type User = {
+  _id: string;
   name: string;
   password: string;
   preferences: UserPreferences;

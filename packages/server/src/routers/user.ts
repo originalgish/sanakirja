@@ -149,7 +149,7 @@ router.put("/api/v1/users/:userId/preferences", auth, async (req: AuthRequest, r
 
     updatesKeys.forEach((update) => (user.preferences[update] = updates[update]));
     await user.save();
-    res.status(200).send(user);
+    res.status(200).send(user.preferences);
   } catch (e) {
     res.status(500).send(e);
   }
