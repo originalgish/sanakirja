@@ -1,12 +1,13 @@
 import express from "express";
 
+import { auth } from "middleware";
 import { SettingsModel } from "models";
 
 import type { Language } from "@sanakirja/shared";
 
 const router = express.Router();
 
-router.get("/api/v1/settings", async (req, res) => {
+router.get("/api/v1/settings", auth, async (req, res) => {
   try {
     const settings = await SettingsModel.findOne({});
     res.status(200).send(settings);
@@ -15,7 +16,7 @@ router.get("/api/v1/settings", async (req, res) => {
   }
 });
 
-router.post("/api/v1/settings/create", async (req, res) => {
+router.post("/api/v1/settings/create", auth, async (req, res) => {
   try {
     const settings = new SettingsModel({
       mode: "finnish",
@@ -28,7 +29,7 @@ router.post("/api/v1/settings/create", async (req, res) => {
   }
 });
 
-router.put("/api/v1/settings/set_mode", async (req, res) => {
+router.put("/api/v1/settings/set_mode", auth, async (req, res) => {
   try {
     const { mode } = req.body as { mode: Language };
 
@@ -47,7 +48,7 @@ router.put("/api/v1/settings/set_mode", async (req, res) => {
   }
 });
 
-router.delete("/api/v1/settings", async (req, res) => {
+router.delete("/api/v1/settings", auth, async (req, res) => {
   try {
     await SettingsModel.deleteMany({});
 

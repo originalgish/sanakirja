@@ -1,3 +1,11 @@
 export const languages = ["finnish", "english"] as const;
 
 export type Language = (typeof languages)[number];
+
+export type User = {
+  name: string;
+  password: string;
+  tokens: {
+    token: string;
+  }[];
+};

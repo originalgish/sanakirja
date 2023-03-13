@@ -1,11 +1,12 @@
 import express from "express";
 
 import { api } from "api";
+import { auth } from "middleware";
 import { WordsModel } from "models";
 
 const router = express.Router();
 
-router.get("/api/v1/words", async (req, res) => {
+router.get("/api/v1/words", auth, async (req, res) => {
   try {
     const words = await WordsModel.find({});
     res.status(200).send(words);
@@ -14,7 +15,7 @@ router.get("/api/v1/words", async (req, res) => {
   }
 });
 
-router.get("/api/v1/words/get_random", async (req, res) => {
+router.get("/api/v1/words/get_random", auth, async (req, res) => {
   try {
     const words = await WordsModel.find({});
 
@@ -25,7 +26,7 @@ router.get("/api/v1/words/get_random", async (req, res) => {
   }
 });
 
-router.post("/api/v1/words/load", async (req, res) => {
+router.post("/api/v1/words/load", auth, async (req, res) => {
   try {
     await WordsModel.deleteMany({});
 
@@ -46,7 +47,7 @@ router.post("/api/v1/words/load", async (req, res) => {
   }
 });
 
-router.delete("/api/v1/words", async (req, res) => {
+router.delete("/api/v1/words", auth, async (req, res) => {
   try {
     await WordsModel.deleteMany({});
 

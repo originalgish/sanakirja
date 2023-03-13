@@ -1,7 +1,9 @@
-import { Drawer as AntDrawer, Form } from "antd";
+import { Divider, Drawer as AntDrawer, Form, Typography } from "antd";
 
 import { SetMode } from "./SetMode";
 import { SyncWords } from "./SyncWords";
+import { Logout } from "./Logout";
+import { useUser } from "contexts";
 
 type Props = {
   open: boolean;
@@ -9,8 +11,14 @@ type Props = {
 };
 
 export const Drawer = ({ open, onClose }: Props) => {
+  const { user } = useUser();
   return (
     <AntDrawer title="Settings" placement="left" width="260px" onClose={onClose} open={open}>
+      <Typography.Text style={{ margin: 0 }}>
+        Hey, <b>{user?.name}</b>!
+      </Typography.Text>
+      <Divider />
+
       <Form>
         <Form.Item label="Set mode" name="mode">
           <SetMode />
@@ -18,6 +26,12 @@ export const Drawer = ({ open, onClose }: Props) => {
 
         <Form.Item>
           <SyncWords />
+        </Form.Item>
+
+        <Divider />
+
+        <Form.Item>
+          <Logout />
         </Form.Item>
       </Form>
     </AntDrawer>
