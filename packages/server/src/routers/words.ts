@@ -1,7 +1,7 @@
 import express from "express";
 
 import { api } from "api";
-import { auth } from "middleware";
+import { auth, admin } from "middleware";
 import { WordsModel } from "models";
 
 const router = express.Router();
@@ -26,7 +26,7 @@ router.get("/api/v1/words/get_random", auth, async (req, res) => {
   }
 });
 
-router.post("/api/v1/words/load", auth, async (req, res) => {
+router.post("/api/v1/words/load", [auth, admin], async (req, res) => {
   try {
     await WordsModel.deleteMany({});
 
@@ -47,7 +47,7 @@ router.post("/api/v1/words/load", auth, async (req, res) => {
   }
 });
 
-router.delete("/api/v1/words", auth, async (req, res) => {
+router.delete("/api/v1/words", [auth, admin], async (req, res) => {
   try {
     await WordsModel.deleteMany({});
 
