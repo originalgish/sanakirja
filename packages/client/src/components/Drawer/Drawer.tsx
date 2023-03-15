@@ -11,7 +11,7 @@ type Props = {
 };
 
 export const Drawer = ({ open, onClose }: Props) => {
-  const { user } = useUser();
+  const { user, isAdmin } = useUser();
   return (
     <AntDrawer title="Settings" placement="left" width="260px" onClose={onClose} open={open}>
       <Typography.Text style={{ margin: 0 }}>
@@ -24,9 +24,11 @@ export const Drawer = ({ open, onClose }: Props) => {
           <SetMode />
         </Form.Item>
 
-        <Form.Item>
-          <SyncWords />
-        </Form.Item>
+        {isAdmin && (
+          <Form.Item>
+            <SyncWords />
+          </Form.Item>
+        )}
 
         <Divider />
 
