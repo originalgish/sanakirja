@@ -20,3 +20,13 @@ Build all to pass shared data across packages.
 ```
 pnpm build
 ```
+
+## Server `.env` file
+
+Add `.env` file to `packages/server` with following structure:
+
+```
+MONGODB_URL=""
+NOTION_API_KEY=""
+JWT_SECRET=""
+```
