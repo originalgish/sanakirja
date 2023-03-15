@@ -14,6 +14,7 @@ const putPreferences = (userId: string, preferences: UserPreferences) =>
 
 type UserContextType = {
   user?: User;
+  isAdmin: boolean;
   isLoading: boolean;
   updatePreferences: (preferences: UserPreferences | ((preferences: UserPreferences) => UserPreferences)) => void;
 };
@@ -36,8 +37,10 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     [user, mutate],
   );
 
+  const isAdmin = user?.role === "admin";
+
   return (
-    <UserContext.Provider value={{ user, isLoading: isLoading || isValidating, updatePreferences }}>
+    <UserContext.Provider value={{ user, isAdmin, isLoading: isLoading || isValidating, updatePreferences }}>
       {children}
     </UserContext.Provider>
   );
