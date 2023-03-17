@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { Button, Spin } from "antd";
+import styled from "styled-components";
 import useSWR from "swr";
 
 import { api } from "api";
@@ -9,6 +10,13 @@ import { Card } from "./Card";
 import type { Word as WordType } from "types";
 
 const getWord = () => api.get<WordType>("/words/get_random").then(({ data }) => data);
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
 
 export const Word = () => {
   const {
@@ -33,12 +41,12 @@ export const Word = () => {
   if (isLoading) return <Spin size="large" />;
 
   return (
-    <div className="word-containter">
+    <Container>
       {word && <Card english={word.english} finnish={word.finnish} isValidating={isValidating} />}
 
       <Button type="primary" onClick={getNextWord} loading={isValidating} size="large">
         Next word
       </Button>
-    </div>
+    </Container>
   );
 };
