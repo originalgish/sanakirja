@@ -1,6 +1,8 @@
-import { useCallback } from "react";
+import React, { useCallback } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Button, Form, Input, Typography } from "antd";
+import type { FormProps } from "antd";
+import styled from "styled-components";
 
 import { useAuth } from "contexts";
 
@@ -9,6 +11,36 @@ type LocationState = {
     pathname: string;
   };
 };
+
+const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+`;
+
+const StyledForm: React.FC<FormProps> = styled(Form)`
+  display: grid;
+  max-width: 600;
+  width: 80%;
+`;
+
+const StyledTitle = styled(Typography.Title)`
+  margin-top: 0;
+  text-align: center;
+`;
+
+const StyledSubmitItem = styled(Form.Item)`
+  justify-self: center;
+`;
+
+const StyledLoggedInText = styled(Typography.Text)`
+  justify-self: center;
+`;
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -30,20 +62,9 @@ export const Login = () => {
   );
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        height: "100vh",
-        width: "100%",
-        display: "grid",
-        justifyItems: "center",
-        alignContent: "center",
-      }}
-    >
-      <Form name="login" layout="vertical" style={{ display: "grid", maxWidth: 600, width: "80%" }} onFinish={onSubmit}>
-        <Typography.Title style={{ marginTop: 0, textAlign: "center" }}>Login</Typography.Title>
+    <Container>
+      <StyledForm name="login" layout="vertical" onFinish={onSubmit}>
+        <StyledTitle>Login</StyledTitle>
 
         <Form.Item label="Name" name="name" rules={[{ required: true, message: "Name is required" }]}>
           <Input />
@@ -53,16 +74,16 @@ export const Login = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item style={{ justifySelf: "center" }}>
+        <StyledSubmitItem>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
-        </Form.Item>
+        </StyledSubmitItem>
 
-        <Typography.Text style={{ justifySelf: "center" }}>
+        <StyledLoggedInText>
           Already logged in? <Link to="/">Take a seat</Link> then.
-        </Typography.Text>
-      </Form>
-    </div>
+        </StyledLoggedInText>
+      </StyledForm>
+    </Container>
   );
 };

@@ -1,4 +1,5 @@
 import { Divider, Drawer as AntDrawer, Form, Typography } from "antd";
+import styled from "styled-components";
 
 import { SetMode } from "./SetMode";
 import { SyncWords } from "./SyncWords";
@@ -10,13 +11,17 @@ type Props = {
   onClose: () => void;
 };
 
+const StyledText = styled(Typography.Text)`
+  margin: 0;
+`;
+
 export const Drawer = ({ open, onClose }: Props) => {
   const { user, isAdmin } = useUser();
   return (
     <AntDrawer title="Settings" placement="left" width="260px" onClose={onClose} open={open}>
-      <Typography.Text style={{ margin: 0 }}>
+      <StyledText>
         Hey, <b>{user?.name}</b>!
-      </Typography.Text>
+      </StyledText>
       <Divider />
 
       <Form>
