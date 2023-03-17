@@ -8,7 +8,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 48px);
+  height: ${({ theme }) => `calc(100vh - ${theme.variables.headerHeight})`};
+  margin-top: ${({ theme }) => theme.variables.headerHeight};
 `;
 
 export const Words = () => {
