@@ -11,7 +11,7 @@ router.get("/api/v1/words", auth, async (req, res) => {
     const words = await WordsModel.find({});
     res.status(200).send(words);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -22,7 +22,7 @@ router.get("/api/v1/words/get_random", auth, async (req, res) => {
     const randomId = Math.floor(Math.random() * words.length);
     res.status(200).send(words[randomId]);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -43,7 +43,7 @@ router.post("/api/v1/words/load", [auth, admin], async (req, res) => {
 
     res.status(200).send(words);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -53,7 +53,7 @@ router.delete("/api/v1/words", [auth, admin], async (req, res) => {
 
     res.status(200).send();
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 

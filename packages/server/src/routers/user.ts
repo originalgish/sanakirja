@@ -24,7 +24,7 @@ router.post("/api/v1/users/signup", async (req: AuthRequest, res) => {
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -34,9 +34,9 @@ router.post("/api/v1/users/login", async (req: AuthRequest, res) => {
   try {
     const user = await UserModel.findByCredentials(name, password);
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res.status(200).send({ user, token });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).send(e.message);
   }
 });
 
@@ -47,9 +47,9 @@ router.post("/api/v1/users/logout", auth, async (req: AuthRequest, res) => {
     });
     await req.user.save();
 
-    res.send();
+    res.status(200).send();
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -58,9 +58,9 @@ router.post("/api/v1/users/logout_all", auth, async (req: AuthRequest, res) => {
     req.user.tokens = [];
     await req.user.save();
 
-    res.send();
+    res.status(200).send();
   } catch (e) {
-    res.status(400).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -69,7 +69,7 @@ router.get("/api/v1/users", [auth, admin], async (req: AuthRequest, res) => {
     const users = await UserModel.find({});
     res.status(200).send(users);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -78,12 +78,12 @@ router.get("/api/v1/users/me", auth, async (req: AuthRequest, res) => {
     const user = req.user;
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -92,12 +92,12 @@ router.get("/api/v1/users/token", auth, async (req: AuthRequest, res) => {
     const token = req.token;
 
     if (!token) {
-      res.status(404).send();
+      res.status(404).send("Unable to find token");
     }
 
     res.status(200).send(token);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -106,12 +106,12 @@ router.get("/api/v1/users/:userId", [auth, admin], async (req: AuthRequest, res)
     const user = await UserModel.findOne({ _id: req.params.userId });
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -123,14 +123,14 @@ router.put("/api/v1/users/:userId", [auth, admin], async (req: AuthRequest, res)
     const user = await UserModel.findOne({ _id: req.params.userId });
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     updatesKeys.forEach((update) => (user[update] = updates[update]));
     await user.save();
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -141,7 +141,7 @@ router.put("/api/v1/users/:userId/role", auth, async (req: AuthRequest, res) => 
     const user = await UserModel.findOne({ _id: req.params.userId });
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     if (!userRoles.includes(updates.role)) {
@@ -153,7 +153,7 @@ router.put("/api/v1/users/:userId/role", auth, async (req: AuthRequest, res) => 
     await user.save();
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -165,18 +165,18 @@ router.put("/api/v1/users/:userId/preferences", auth, async (req: AuthRequest, r
     const user = await UserModel.findOne({ _id: req.params.userId });
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     if (!languages.includes(updates.mode)) {
-      return res.status(400).send("Incorrect updates");
+      return res.status(400).send("Incorrect preferences");
     }
 
     updatesKeys.forEach((update) => (user.preferences[update] = updates[update]));
     await user.save();
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -186,7 +186,7 @@ router.delete("/api/v1/users/", [auth, admin], async (req: AuthRequest, res) => 
 
     res.status(200).send();
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 
@@ -195,12 +195,12 @@ router.delete("/api/v1/users/:userId", [auth, admin], async (req: AuthRequest, r
     const user = await UserModel.findOneAndDelete({ _id: req.params.userId });
 
     if (!user) {
-      res.status(404).send();
+      res.status(404).send("Unable to find user");
     }
 
     res.status(200).send(user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(`Something went wrong: ${e.message}`);
   }
 });
 

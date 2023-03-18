@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import useSWR from "swr";
 
 import { api } from "api";
-import { useAuth } from "contexts";
+import { useAuth, useError } from "contexts";
 
 import type { User, UserPreferences } from "@sanakirja/shared";
 
@@ -22,19 +22,31 @@ type UserContextType = {
 const UserContext = createContext({} as UserContextType);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
+  const { setError } = useError();
   const { isAuthed } = useAuth();
 
-  const { data: user, isLoading, isValidating, mutate } = useSWR<User | undefined>(isAuthed ? "user" : null, getUser);
+  const {
+    data: user,
+    isLoading,
+    isValidating,
+    mutate,
+  } = useSWR<User | undefined>(isAuthed ? "user" : null, getUser, {
+    onError: (error) => setError(error),
+  });
 
   const updatePreferences = useCallback(
     async (prefs: UserPreferences | ((prefs: UserPreferences) => UserPreferences)) => {
-      if (user) {
-        const preferences = typeof prefs === "function" ? prefs(user.preferences) : prefs;
-        await putPreferences(user._id, preferences);
-        mutate({ ...user, preferences });
+      try {
+        if (user) {
+          const preferences = typeof prefs === "function" ? prefs(user.preferences) : prefs;
+          await putPreferences(user._id, preferences);
+          mutate({ ...user, preferences });
+        }
+      } catch (error) {
+        setError(error);
       }
     },
-    [user, mutate],
+    [user, mutate, setError],
   );
 
   const isAdmin = user?.role === "admin";

@@ -18,6 +18,6 @@ export const auth = async function (req: AuthRequest, res, next) {
     req.user = user;
     next();
   } catch (e) {
-    res.status(401).send({ error: "Please authenticate." });
+    res.status(401).send("Unauthorized");
   }
 };
