@@ -1,6 +1,6 @@
 import { Routes as RouterRoutes, Route } from "react-router-dom";
 
-import { Login, Words } from "pages";
+import { Login, Words, NotFound } from "pages";
 import { RequireAuth } from "./RequireAuth";
 
 export const Routes = () => {
@@ -17,7 +17,7 @@ export const Routes = () => {
 
       <Route path="login" element={<Login />} />
 
-      <Route path="*" element={<p>Page Not Found</p>} />
+      <Route path="*" element={<NotFound />} />
     </RouterRoutes>
   );
 };
