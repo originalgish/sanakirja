@@ -1,11 +1,14 @@
 import { createContext, useCallback, useContext } from "react";
 import type { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 import { api } from "api";
+import { useError } from "contexts";
 
 import type { User } from "@sanakirja/shared";
-import { useNavigate } from "react-router-dom";
+
+type UserRequest = Pick<User, "name" | "password">;
 
 const TOKEN_KEY = process.env.REACT_APP_LS_TOKEN_KEY ?? "";
 const getTokenFromLS = () => localStorage.getItem(TOKEN_KEY) ?? undefined;
@@ -14,7 +17,7 @@ const removeTokenFromLS = () => localStorage.removeItem(TOKEN_KEY);
 
 const getToken = () => api.get<string>("/users/token").then(({ data }) => data);
 
-const postLogin = ({ name, password }: { name: string; password: string }) =>
+const postLogin = ({ name, password }: UserRequest) =>
   api.post<{ user: User; token: string }>("/users/login", { name, password }).then(({ data }) => data);
 
 const postLogout = () => api.post("/users/logout").then(({ data }) => data);
@@ -22,7 +25,7 @@ const postLogout = () => api.post("/users/logout").then(({ data }) => data);
 type AuthContextType = {
   token: string | undefined;
   isAuthed: boolean;
-  login: ({ name, password }: { name: string; password: string }, callback?: VoidFunction) => Promise<void>;
+  login: ({ name, password }: UserRequest, callback?: VoidFunction) => Promise<void>;
   logout: (callback?: VoidFunction) => Promise<void>;
 };
 
@@ -30,6 +33,8 @@ const AuthContext = createContext({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
+  const { setError } = useError();
+
   const shouldFetch = getTokenFromLS() !== undefined;
   const { data: token, mutate } = useSWR<string | undefined>(shouldFetch ? "token" : null, getToken, {
     fallbackData: getTokenFromLS(),
@@ -40,29 +45,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const login = useCallback(
-    async ({ name, password }: { name: string; password: string }, callback?: VoidFunction) => {
-      const data = await postLogin({
-        name,
-        password,
-      });
+    async ({ name, password }: UserRequest, callback?: VoidFunction) => {
+      try {
+        const data = await postLogin({
+          name,
+          password,
+        });
 
-      if (data?.token) {
-        mutate(data.token);
-        setTokenToLS(data.token);
-        callback?.();
+        if (data?.token) {
+          mutate(data.token);
+          setTokenToLS(data.token);
+          callback?.();
+        }
+      } catch (error) {
+        setError(error);
       }
     },
-    [mutate],
+    [mutate, setError],
   );
 
   const logout = useCallback(
     async (callback?: VoidFunction) => {
-      await postLogout();
-      mutate(undefined);
-      removeTokenFromLS();
-      callback?.();
+      try {
+        await postLogout();
+        mutate(undefined);
+        removeTokenFromLS();
+        callback?.();
+      } catch (error) {
+        setError(error);
+      }
     },
-    [mutate],
+    [mutate, setError],
   );
 
   const isAuthed = token !== undefined;

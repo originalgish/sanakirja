@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 
 import { api } from "api";
+import { useError } from "contexts";
 
 import { Card } from "./Card";
 
@@ -19,6 +20,7 @@ const Container = styled.div`
 `;
 
 export const Word = () => {
+  const { setError } = useError();
   const {
     data: word,
     error,
@@ -30,11 +32,16 @@ export const Word = () => {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
+    onError: (error) => setError(error),
   });
 
   const getNextWord = useCallback(async () => {
-    await mutate();
-  }, [mutate]);
+    try {
+      await mutate();
+    } catch (error) {
+      setError(error);
+    }
+  }, [mutate, setError]);
 
   if (error) return <p>An error has occurred.</p>;
 
