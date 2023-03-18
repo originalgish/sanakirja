@@ -1,10 +1,11 @@
 import { useCallback } from "react";
-import { Button, Spin } from "antd";
+import { Button } from "antd";
 import styled from "styled-components";
 import useSWR from "swr";
 
 import { api } from "api";
 import { useError } from "contexts";
+import { Spinner } from "components";
 
 import { Card } from "./Card";
 
@@ -45,7 +46,7 @@ export const Word = () => {
 
   if (error) return <p>An error has occurred.</p>;
 
-  if (isLoading) return <Spin size="large" />;
+  if (isLoading) return <Spinner />;
 
   return (
     <Container>

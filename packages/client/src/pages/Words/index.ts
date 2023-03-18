@@ -1,1 +1,1 @@
-export { Words } from "./Words";
+export { Words as default } from "./Words";
