@@ -5,7 +5,54 @@ importers:
   .:
     specifiers: {}
 
-  packages/client:
+  packages/backend:
+    specifiers:
+      '@notionhq/client': ^2.2.3
+      '@sanakirja/shared': workspace:*
+      '@types/bcrypt': ^5.0.0
+      '@types/express': ^4.17.17
+      '@types/jsonwebtoken': ^9.0.1
+      '@types/node': ^18.14.0
+      '@typescript-eslint/eslint-plugin': ^5.52.0
+      '@typescript-eslint/parser': ^5.52.0
+      bcrypt: ^5.1.0
+      cors: ^2.8.5
+      dotenv: ^16.0.3
+      eslint: ^8.34.0
+      express: ^4.18.2
+      jsonwebtoken: ^9.0.0
+      mongoose: ^7.0.0
+      nodemon: ^2.0.20
+      prettier: ^2.8.4
+      rimraf: ^4.1.2
+      ts-node: ^10.9.1
+      tsconfig-paths: ^4.1.2
+      typescript: ^4.9.5
+    dependencies:
+      '@notionhq/client': 2.2.3
+      '@sanakirja/shared': link:../shared
+      bcrypt: 5.1.0
+      cors: 2.8.5
+      dotenv: 16.0.3
+      express: 4.18.2
+      jsonwebtoken: 9.0.0
+      mongoose: 7.0.0
+    devDependencies:
+      '@types/bcrypt': 5.0.0
+      '@types/express': 4.17.17
+      '@types/jsonwebtoken': 9.0.1
+      '@types/node': 18.14.6
+      '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
+      '@typescript-eslint/parser': 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
+      eslint: 8.35.0
+      nodemon: 2.0.21
+      prettier: 2.8.4
+      rimraf: 4.3.0
+      ts-node: 10.9.1_alpjt73dvgv6kni625hu7f2l4m
+      tsconfig-paths: 4.1.2
+      typescript: 4.9.5
+
+  packages/frontend:
     specifiers:
       '@ant-design/icons': ^5.0.1
       '@babel/core': ^7.21.0
@@ -67,53 +114,6 @@ importers:
       '@typescript-eslint/parser': 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
       eslint: 8.35.0
       eslint-plugin-react: 7.32.2_eslint@8.35.0
-
-  packages/server:
-    specifiers:
-      '@notionhq/client': ^2.2.3
-      '@sanakirja/shared': workspace:*
-      '@types/bcrypt': ^5.0.0
-      '@types/express': ^4.17.17
-      '@types/jsonwebtoken': ^9.0.1
-      '@types/node': ^18.14.0
-      '@typescript-eslint/eslint-plugin': ^5.52.0
-      '@typescript-eslint/parser': ^5.52.0
-      bcrypt: ^5.1.0
-      cors: ^2.8.5
-      dotenv: ^16.0.3
-      eslint: ^8.34.0
-      express: ^4.18.2
-      jsonwebtoken: ^9.0.0
-      mongoose: ^7.0.0
-      nodemon: ^2.0.20
-      prettier: ^2.8.4
-      rimraf: ^4.1.2
-      ts-node: ^10.9.1
-      tsconfig-paths: ^4.1.2
-      typescript: ^4.9.5
-    dependencies:
-      '@notionhq/client': 2.2.3
-      '@sanakirja/shared': link:../shared
-      bcrypt: 5.1.0
-      cors: 2.8.5
-      dotenv: 16.0.3
-      express: 4.18.2
-      jsonwebtoken: 9.0.0
-      mongoose: 7.0.0
-    devDependencies:
-      '@types/bcrypt': 5.0.0
-      '@types/express': 4.17.17
-      '@types/jsonwebtoken': 9.0.1
-      '@types/node': 18.14.6
-      '@typescript-eslint/eslint-plugin': 5.54.0_6mj2wypvdnknez7kws2nfdgupi
-      '@typescript-eslint/parser': 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
-      eslint: 8.35.0
-      nodemon: 2.0.21
-      prettier: 2.8.4
-      rimraf: 4.3.0
-      ts-node: 10.9.1_alpjt73dvgv6kni625hu7f2l4m
-      tsconfig-paths: 4.1.2
-      typescript: 4.9.5
 
   packages/shared:
     specifiers:
@@ -2612,7 +2612,7 @@ packages:
     resolution: {integrity: sha512-9K4zoImiZc3HlIp6AVUDE4CWYx22a+lhSZMYNpbjW04+YF0KWj4pJXnEMjdnFTiQibFFmElcsasJXDbdI/EPhA==}
     dependencies:
       '@types/eslint': 8.21.1
-      '@types/estree': 0.0.51
+      '@types/estree': 1.0.0
     dev: false
 
   /@types/eslint/8.21.1:
@@ -9850,6 +9850,7 @@ packages:
   /rimraf/4.3.0:
     resolution: {integrity: sha512-5qVDXPbByA1qSJEWMv1qAwKsoS22vVpsL2QyxCKBw4gf6XiFo1K3uRLY6uSOOBFDwnqAZtnbILqWKKlzh8bkGg==}
     engines: {node: '>=14'}
+    deprecated: Please upgrade to 4.3.1 or higher to fix a potentially damaging issue regarding symbolic link following. See https://github.com/isaacs/rimraf/issues/259 for details.
     hasBin: true
     dependencies:
       glob: 9.2.1

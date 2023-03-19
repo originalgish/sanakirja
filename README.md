@@ -21,9 +21,9 @@ Build all to pass shared data across packages.
 pnpm build
 ```
 
-## Server `.env` file
+## Backend `.env` file
 
-Add `.env` file to `packages/server` with following structure:
+Add `.env` file to `packages/backend` with following structure:
 
 ```
 MONGODB_URL=""

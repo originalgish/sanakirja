@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  deploy-server:
-    name: Deploy server
+  deploy-backend:
+    name: Deploy backend
     runs-on: ubuntu-latest
     environment:
       name: Production
@@ -27,7 +27,7 @@ jobs:
         run: pnpm install -r --frozen-lockfile
       - name: Build
         run: pnpm build
-      - name: Deploy server to Heroku
+      - name: Deploy backend to Heroku
         uses: akhileshns/heroku-deploy@v3.12.13
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -35,10 +35,10 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           branch: main
           buildpack: "https://github.com/unfold/heroku-buildpack-pnpm"
-          procfile: "web: cd packages/server && pnpm start"
+          procfile: "web: cd packages/backend && pnpm start"
 
-  deploy-client:
-    name: Deploy client
+  deploy-frontend:
+    name: Deploy frontend
     runs-on: ubuntu-latest
     environment:
       name: Production
@@ -65,7 +65,7 @@ jobs:
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2
         with:
-          publish-dir: "packages/client/build"
+          publish-dir: "packages/frontend/build"
           production-branch: main
           deploy-message: "Deploy from GitHub Actions"
           enable-pull-request-comment: false
