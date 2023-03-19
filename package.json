@@ -10,8 +10,7 @@
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
     "ts-check": "pnpm -r ts-check",
-    "reinstall": "rm -rf node_modules packages/*/node_modules && pnpm i",
-    "clean": "pnpm -r clean"
+    "reinstall": "rm -rf node_modules packages/*/node_modules && pnpm i"
   },
   "dependencies": {},
   "engines": {

@@ -2,14 +2,15 @@
   "name": "@sanakirja/frontend",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "dev": "vite --port=3000",
     "start": "react-scripts start",
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "test": "react-scripts test",
     "ts-check": "tsc",
-    "lint": "eslint ./src",
-    "eject": "react-scripts eject"
+    "lint": "eslint ./src"
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
@@ -20,10 +21,8 @@
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "react-router-dom": "^6.9.0",
-    "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
-    "swr": "^2.0.3",
-    "typescript": "^4.7.4"
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",
@@ -41,26 +40,11 @@
     "@types/testing-library__jest-dom": "^5.14.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
+    "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.18.0",
-    "eslint-plugin-react": "^7.30.1"
-  },
-  "proxy": "http://localhost:3001",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "eslint-plugin-react": "^7.30.1",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0",
+    "vite-tsconfig-paths": "^4.0.7"
   }
 }
