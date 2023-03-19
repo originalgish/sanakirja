@@ -60,8 +60,8 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          REACT_APP_LS_TOKEN_KEY: ${{ secrets.REACT_APP_LS_TOKEN_KEY }}
+          VITE_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          VITE_LS_TOKEN_KEY: ${{ secrets.REACT_APP_LS_TOKEN_KEY }}
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v2
         with:

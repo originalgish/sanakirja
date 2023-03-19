@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000",
-    "start": "react-scripts start",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "react-scripts test",
