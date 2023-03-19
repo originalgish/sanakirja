@@ -14,7 +14,14 @@ export default defineConfig({
   },
   build: {
     commonjsOptions: {
-      include: [/@sanakirja\/shared/, /node_modules/],
+      include: [/@sanakirja\/shared/, /node_modules/, /dist/],
+    },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          antd: ["antd"],
+        },
+      },
     },
   },
 });
