@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --outDir build",
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
