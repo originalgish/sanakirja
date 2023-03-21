@@ -5,9 +5,9 @@ import useSWR from "swr";
 
 import { api } from "api";
 import { useError } from "contexts";
-import { Spinner } from "components";
 
 import { Card } from "./Card";
+import { Spinner } from "./Spinner";
 
 import type { Word as WordType } from "types";
 

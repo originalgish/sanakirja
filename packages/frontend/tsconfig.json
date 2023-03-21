@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "target": "es5",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -17,5 +18,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

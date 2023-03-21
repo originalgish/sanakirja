@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
 
 import { api } from "api";
+import { config } from "config";
 import { useError } from "contexts";
 
 import type { User } from "@sanakirja/shared";
 
 type UserRequest = Pick<User, "name" | "password">;
 
-const TOKEN_KEY = process.env.REACT_APP_LS_TOKEN_KEY ?? "";
+const TOKEN_KEY = config.token_key ?? "";
 const getTokenFromLS = () => localStorage.getItem(TOKEN_KEY) ?? undefined;
 const setTokenToLS = (token: string) => localStorage.setItem(TOKEN_KEY, token);
 const removeTokenFromLS = () => localStorage.removeItem(TOKEN_KEY);
