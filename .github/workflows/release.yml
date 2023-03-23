@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+jobs:
+  pr_merged:
+    name: "PR Merged"
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".node-version"
+          cache: "pnpm"
+      - name: Git config
+        run: |
+          git config --global user.email "${{ secrets.GH_EMAIL }}"
+          git config --global user.name "${{ secrets.GH_NAME }}"
+      - name: Apply version bump (major)
+        if: contains(github.event.pull_request.labels.*.name, 'major')
+        run: npm version major
+      - name: Apply version bump (minor)
+        if: contains(github.event.pull_request.labels.*.name, 'minor')
+        run: npm version minor
+      - name: Apply version bump (patch)
+        if: contains(github.event.pull_request.labels.*.name, 'patch')
+        run: npm version patch
+      - name: Git push version bump
+        run: git push origin main --follow-tags --force-with-lease
+      - id: set-version
+        name: Output version change
+        run: npm pkg get version

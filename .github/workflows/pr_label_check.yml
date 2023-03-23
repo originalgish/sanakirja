@@ -1,0 +1,23 @@
+name: PR Label Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - reopened
+      - labeled
+      - unlabeled
+
+jobs:
+  check_labels:
+    name: "Check PR Labels"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: mheap/github-action-required-labels@v3
+        with:
+          mode: exactly
+          count: 1
+          labels: "major, minor, patch"
+          add_comment: true
