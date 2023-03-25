@@ -16,5 +16,5 @@ jobs:
         with:
           mode: exactly
           count: 1
-          labels: "major, minor, patch"
+          labels: "major, minor, patch, no-release"
           add_comment: true
