@@ -1,4 +1,4 @@
-name: Release
+name: Bump Version
 
 on:
   pull_request:
@@ -7,8 +7,8 @@ on:
     types:
       - closed
 jobs:
-  pr_merged:
-    name: "PR Merged"
+  bump version:
+    name: "Bump verison"
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
