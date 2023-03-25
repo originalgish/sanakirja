@@ -9,7 +9,7 @@
     "preview": "vite preview --outDir build",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "ts-check": "tsc",
+    "typecheck": "tsc",
     "lint": "eslint ./src"
   },
   "dependencies": {

@@ -11,7 +11,7 @@
     "build": "rimraf dist && tsc -b",
     "test": "echo \"Error: no test specified\"",
     "lint": "eslint ./src",
-    "ts-check": "tsc --isolatedModules"
+    "typecheck": "tsc --isolatedModules"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",

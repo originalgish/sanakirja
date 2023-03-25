@@ -9,7 +9,7 @@
     "build": "pnpm -r build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint",
-    "ts-check": "pnpm -r ts-check",
+    "typecheck": "pnpm -r typecheck",
     "reinstall": "rm -rf node_modules packages/*/node_modules && pnpm i"
   },
   "dependencies": {},

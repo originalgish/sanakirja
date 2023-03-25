@@ -26,8 +26,8 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-  ts-check:
-    name: ts-check
+  typecheck:
+    name: typecheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,8 +45,8 @@ jobs:
         run: pnpm install -r --frozen-lockfile
       - name: Build
         run: pnpm build
-      - name: ts-check
-        run: pnpm ts-check
+      - name: typecheck
+        run: pnpm typecheck
 
   test:
     name: Test
