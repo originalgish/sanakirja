@@ -19,7 +19,7 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://vitest.dev) for more information.
 
-### `pnpm ts-check`
+### `pnpm typecheck`
 
 Runs Typescript compiler.
 
