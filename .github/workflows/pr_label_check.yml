@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: mheap/github-action-required-labels@v3
+      - uses: mheap/github-action-required-labels@v4
         with:
           mode: exactly
           count: 1
