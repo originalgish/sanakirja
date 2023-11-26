@@ -15,7 +15,7 @@ jobs:
       name: Production
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -47,7 +47,7 @@ jobs:
       url: https://sanakirja.netlify.app
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
